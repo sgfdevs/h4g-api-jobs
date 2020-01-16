@@ -166,6 +166,7 @@ return [
          * Package Service Providers...
          */
         PragmaRX\Health\ServiceProvider::class,
+        Fideloper\Proxy\TrustedProxyServiceProvider::class,
 
         /*
          * Application Service Providers...
