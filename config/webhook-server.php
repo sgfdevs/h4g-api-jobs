@@ -51,11 +51,16 @@ return [
      * By default we will verify that the ssl certificate of the destination
      * of the webhook is valid.
      */
-    'verify_ssl' => true,
+    'verify_ssl' => false,
 
     /*
      * When using Laravel Horizon you can specify tags that should be used on the
      * underlying job that performs the webhook request.
      */
     'tags' => [],
+
+    /*
+     * This is the secret we will use to sign our webhook payload
+     */
+    'secret' => env('WEBHOOK_SERVER_SECRET'),
 ];

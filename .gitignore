@@ -3,12 +3,28 @@
 /public/hot
 /public/js
 /public/storage
+/storage/app
+/storage/framework
+/storage/logs
 /storage/*.key
 /vendor
+.DS_Store
 .env
 .env.backup
+.env.local
+.env.production
+.idea
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+
+# Docker
+/Dockerfile
+/docker-compose.yml
+/docker/
+
+# Misc
+/fetch*
+

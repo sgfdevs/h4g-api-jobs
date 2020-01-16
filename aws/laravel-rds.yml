@@ -1,0 +1,103 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Laravel RDS MySQL Database Instance
+
+Parameters:
+  DBInstanceClass:
+    Type: String
+    Default: db.t2.micro
+    AllowedValues:
+      - db.t2.micro
+      - db.t2.small
+      - db.t2.medium
+    Description: Enter db.t2.micro, db.t2.small, or db.t2.medium. Default is db.t2.micro.
+  DBAllocatedStorage:
+    Type: Number
+    Default: 20
+    MinValue: 20
+    MaxValue: 6144
+    Description: Allocated Storage (20 to 6144 GB)
+  DBInstanceIdentifier:
+    Type: String
+    Default: "laravel-demo"
+    Description: Database Instance Name
+  DBName:
+    Type: String
+    Default: "laravel"
+    Description: Database Name
+  DBMasterUsername:
+    Type: String
+    Default: "laravel"
+    Description: Database Master Username
+  DBMasterUserPassword:
+    Type: String
+    Default: "password"
+    Description: Database Master User Password
+
+  VPC:
+    Description: Choose which VPC this RDS instance should be deployed to
+    Type: AWS::EC2::VPC::Id
+  VPCSubnets:
+    Description: Choose which VPC subnets this RDS instance can be deployed to
+    Type: List<AWS::EC2::Subnet::Id>
+
+Resources:
+
+  DBSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      VpcId:
+        Ref: VPC
+      GroupDescription: Inbound and Outbound rules for RDS MySQL Service
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: '3306'
+          ToPort: '3306'
+          CidrIp: 0.0.0.0/0
+          Description: "MySQL from Public Internet"
+
+  DBSubnetGroup:
+    Type: AWS::RDS::DBSubnetGroup
+    Properties:
+      SubnetIds: !Ref VPCSubnets
+      DBSubnetGroupDescription: "Subnet Group for Laravel DB Instance(s)"
+
+  DBInstance:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      DBInstanceIdentifier: !Ref DBInstanceIdentifier
+      DBName: !Ref DBName
+      StorageType: "gp2"
+      AllocatedStorage: !Ref DBAllocatedStorage
+      DBInstanceClass: !Ref DBInstanceClass
+      DBSubnetGroupName: !Ref DBSubnetGroup
+      Engine: "MySQL"
+      EngineVersion: "5.7.22"
+      MasterUsername: !Ref DBMasterUsername
+      MasterUserPassword: !Ref DBMasterUserPassword
+      # WARNING: DB Instance is Publicly Accessible
+      # Production DB Instances should set Publicly Accessible to false
+      PubliclyAccessible: true
+      # WARNING: DB Instance allows incoming MySQL (3306/tcp) from ANY IP
+      # Production DB Instances should restrict access to certain IP ranges or Security Groups
+      VPCSecurityGroups:
+        - !Ref DBSecurityGroup
+    # CloudFormation will take snapshot of DB Instance when deleting this stack
+    DeletionPolicy: "Snapshot"
+
+Outputs:
+
+  EndpointAddress:
+    Description: Endpoint Address of the RDS MySQL Database Instance
+    Value:
+      Fn::GetAtt:
+        - DBInstance
+        - Endpoint.Address
+      # laravel-demo.a1b2c3d4e5f6.us-east-1.rds.amazonaws.com
+
+  EndpointPort:
+    Description: Endpoint Port of the RDS MySQL Database Instance
+    Value:
+      Fn::GetAtt:
+        - DBInstance
+        - Endpoint.Port
+      # 3306

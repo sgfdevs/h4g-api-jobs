@@ -1,0 +1,37 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Laravel Docker Repository on Elastic Container Registry (ECR)
+
+Parameters:
+
+  RepositoryName:
+    Type: String
+    Default: "laravel-demo"
+    Description: Repository Name
+
+Resources:
+
+  LaravelRepository:
+    Type: AWS::ECR::Repository
+    Properties:
+      RepositoryName: !Ref RepositoryName
+      RepositoryPolicyText:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: AllowPushPull
+            Effect: Allow
+            Principal: "*"
+            Action:
+              - "ecr:GetDownloadUrlForLayer"
+              - "ecr:BatchGetImage"
+              - "ecr:BatchCheckLayerAvailability"
+              - "ecr:PutImage"
+              - "ecr:InitiateLayerUpload"
+              - "ecr:UploadLayerPart"
+              - "ecr:CompleteLayerUpload"
+
+Outputs:
+
+  RepositoryURI:
+    Description: URI of Laravel Repository hosted in ECR
+    Value: !Join [ ".", [ !Ref "AWS::AccountId", "dkr.ecr", !Ref "AWS::Region", !Join [ "/", [ "amazonaws.com", !Ref RepositoryName ] ] ] ]
+    # 123456789012.dkr.ecr.us-east-1.amazonaws.com/laravel-app
