@@ -24,6 +24,17 @@ The project is written using a `PHP` framework called [`Laravel`](https://larave
   * For a simple solution, consider using [SQLite](https://www.sqlite.org/download.html)
     * There are many `SQLite` browsers available to use. For example, [DB Browser for SQLite](https://sqlitebrowser.org/).
 
+### Database Configuration
+
+Laravel uses `.env` files for configuring the app for a specific environment. See the [documentation](https://laravel.com/docs/6.x/configuration) for more information. To configure Laravel to use a particular database, make of copy of `.env.example` and save it as `.env`.
+
+To set up Laravel to use SQLite for example, find the `DB_CONNECTION` section, and modify the following lines to:
+
+```
+DB_CONNECTION=sqlite
+DB_DATABASE=/absolute/path/to/database.sqlite
+```
+
 ### Seeding the Database
 
 1. Run the database migrations:
