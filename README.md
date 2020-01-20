@@ -8,6 +8,8 @@ The project is written using a `PHP` framework called [`Laravel`](https://larave
 
 ### Software
 
+* [Node](https://nodejs.org/en/download/)
+
 * [PHP](https://www.php.net/downloads)
   * Install `PHP` for your platform. Mac users can use [`Homebrew`](https://formulae.brew.sh/formula/php).
   * Project tested with version 7.4.0 of PHP.
@@ -43,7 +45,7 @@ php artisan db:seed
 
 * [Laravel](https://laravel.com/docs/6.x#installing-laravel)
   * For starting new Laravel projects and making the `laravel cli tool` available globally in your terminal of choice.
-  
+
 ## Installation
 
 Node dependencies:
