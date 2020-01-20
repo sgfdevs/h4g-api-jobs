@@ -21,6 +21,8 @@ The project is written using a `PHP` framework called [`Laravel`](https://larave
 * Database
   * Laravel supports a few databases. Review the [documentation](https://laravel.com/docs/5.8/database) for guidance.
   * Tested successfully with `MySQL 8.0.19`.
+  * For a simple solution, consider using [SQLite](https://www.sqlite.org/download.html)
+    * There are many `SQLite` browsers available to use. For example, [DB Browser for SQLite](https://sqlitebrowser.org/).
 
 ### Seeding the Database
 
