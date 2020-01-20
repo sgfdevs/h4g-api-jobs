@@ -2,31 +2,6 @@
 
 This API provides job listings and job-related events for the Hack 4 Good Workforce Development Project.
 
-## Installation
-
-Node dependencies:
-```sh
-npm install
-```
-
-PHP dependencies:
-
-```sh
-composer install
-```
-
-## Running the app
-
-To start the app, in a terminal execute:
-
-```sh
-php artisan serve
-```
-
-## Usage example
-
-_For more examples and usage, please refer to the [Wiki](https://github.com/sgfdevs/h4g-api-jobs/wiki)._
-
 ## Development setup
 
 The project is written using a `PHP` framework called [`Laravel`](https://laravel.com/). The following will need to be installed to set up a local development environment.
@@ -68,6 +43,33 @@ php artisan db:seed
 
 * [Laravel](https://laravel.com/docs/6.x#installing-laravel)
   * For starting new Laravel projects and making the `laravel cli tool` available globally in your terminal of choice.
+  
+## Installation
+
+Node dependencies:
+```sh
+npm install
+```
+
+PHP dependencies:
+
+```sh
+composer install
+```
+
+## Running the app
+
+To start the app, in a terminal execute:
+
+```sh
+php artisan serve
+```
+
+## Usage example
+
+_For more examples and usage, please refer to the [Wiki](https://github.com/sgfdevs/h4g-api-jobs/wiki)._
+
+
 
 ## Contributing
 
